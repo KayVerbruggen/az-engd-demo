@@ -27,7 +27,7 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
              status_code=200
         )
     
-@app.blob_trigger(arg_name="myblob", path="mycontainer",
+@app.blob_trigger(arg_name="myblob", path="kaycontainer",
                                connection="AzureWebJobsStorage") 
 def BlobTrigger(myblob: func.InputStream):
     logging.info(f"Python blob trigger function processed blob"
@@ -41,7 +41,7 @@ def http_read_blob(req: func.HttpRequest) -> func.HttpResponse:
     # 1. Get the account URL (e.g., https://aaa.blob.core.windows.net)
     # Best practice: Store this in an App Setting
     account_url = os.environ.get("BLOB_STORAGE_ACCOUNT_URL")
-    container_name = "mycontainer"
+    container_name = "kaycontainer"
     blob_name = req.params.get('file')
 
     if not blob_name:
