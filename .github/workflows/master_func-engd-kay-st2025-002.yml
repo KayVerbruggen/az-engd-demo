@@ -45,9 +45,12 @@ jobs:
           pip install pytest  # Ensure pytest is available
 
       - name: Run Unit Tests
+        env:
+          # This tells Python to include the root directory when looking for modules
+          PYTHONPATH: ${{ github.workspace }}
         run: |
-          # We run pytest here. If tests fail, the workflow stops.
-          pytest tests/
+          # Use 'python -m pytest' as it is more reliable in CI environments
+          python -m pytest tests/
 
       - name: Zip artifact for deployment
         # This only runs if the 'Run Unit Tests' step succeeds
@@ -88,3 +91,4 @@ jobs:
           package: ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}
 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_55CD5EE8E2314D3E9553FFA715A2BA16 }}
+
